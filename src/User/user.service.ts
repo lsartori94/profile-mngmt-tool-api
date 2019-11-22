@@ -1,19 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservices';
+import { Service } from '../Service';
 
 @Injectable()
-export class UserService {
-  private client: ClientProxy;
-
-  constructor() {
-    this.client = ClientProxyFactory.create({
-      transport: Transport.REDIS,
-      options: {
-        url: 'redis://localhost:6379'
-      }
-    });
-  }
-
+export class UserService extends Service {
   public getAllUsers() {
     return this.client.send<string, string>('getAllUsers', 'data');
   }
